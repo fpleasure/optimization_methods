@@ -2,6 +2,10 @@
 
 Реализация классических методов оптимизации на *Python*.
 
+### Список доступных методов
+
+- Градиентный спуск
+
 ## Начало работы
 
 ### Используемые технологии
@@ -49,10 +53,6 @@ from optimizer import Optimizer
 opt = Optimizer("gradient_descent")
 minimum = opt.optimize(lambda x: x ** 2, initial_guess=2)
 ```
-
-### Список доступных методов
-
-- Градиентный спуск
 
 ## Контакты
 - [Никита Королев](https://t.me/niki_korolev)
