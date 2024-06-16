@@ -17,13 +17,13 @@
 1. Клонируйте репозиторий:
 
     ```bash
-    git clone https://github.com/username/repository.git
+    git clone https://github.com/fpleasure/optimization_methods.git
     ```
 
 2. Перейдите в директорию проекта:
 
     ```bash
-    cd repository
+    cd optimization_methods
     ```
 
 3. Создайте и активируйте виртуальное окружение:
