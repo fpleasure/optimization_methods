@@ -1,6 +1,6 @@
 import unittest
-import numpy as np
-from ..optimizer import Optimizer
+import autograd.numpy as np
+from src.optimizer import Optimizer
 
 class TestGradientDescent(unittest.TestCase):
 	def test_quadratic(self):

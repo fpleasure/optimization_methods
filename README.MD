@@ -4,6 +4,8 @@
 
 ### Список доступных методов
 
+- Дихотомия
+- Метод золотого сечения
 - Градиентный спуск
 
 ## Начало работы
@@ -12,6 +14,7 @@
 
 - [Python](https://www.python.org/)
 - [Matplotlib](https://matplotlib.org/stable/)
+- [Autograd](https://github.com/HIPS/autograd)
 - [NumPy](https://numpy.org/)
 
 ### Установка
@@ -53,6 +56,15 @@ from optimizer import Optimizer
 opt = Optimizer("gradient_descent")
 minimum = opt.optimize(lambda x: x ** 2, initial_guess=2)
 ```
+
+### Тестирование
+
+Для тестирования запустите следующий скрипт из директории *optimization_methods*:
+
+```bash
+    python -m unittest discover -s src/tests -p "test_*.py"
+```
+
 
 ## Контакты
 - [Никита Королев](https://t.me/niki_korolev)
