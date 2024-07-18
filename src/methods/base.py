@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import autograd.numpy as np
 
 class BaseOptimizer(ABC):
     @abstractmethod

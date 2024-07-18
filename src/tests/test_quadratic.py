@@ -24,3 +24,6 @@ class TestQuadratic(unittest.TestCase):
 	def test_gradient_descent(self):
 		x = make_test("gradient_descent", quadratic_function, INITIAL_GUESS_ONE, PRECSISION)
 		assert abs(x - 2) < PRECSISION
+
+if __name__ == '__main__':
+    unittest.main()

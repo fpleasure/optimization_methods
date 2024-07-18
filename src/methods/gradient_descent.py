@@ -1,4 +1,6 @@
 from src.methods.base import BaseOptimizer
+from src.methods.supporting_functions import to_float
+
 import autograd.numpy as np
 from autograd import grad
 
@@ -10,14 +12,16 @@ class GradientDescent(BaseOptimizer):
 		self.callback_data = dict()
 
 	def optimize(self, objective_function, initial_guess, precsision=1e-8, callback=False):
-		x = float(initial_guess)
+		x = to_float(initial_guess)
 		self._initialize_callback(initial_guess)
 
 		for _ in range(self.max_iter):
 			gradient = grad(objective_function)(x)
+			# print(x, np.linalg.norm(gradient))
 			x = x - self.learning_rate * gradient
 			self._set_callback_on_step(objective_function, x)
-			if abs(gradient) < precsision:
+
+			if np.linalg.norm(gradient) < precsision:
 				return self.callback_data if callback else x
 
 		raise RuntimeError("Iteration limit has been exceeded")

@@ -1,4 +1,6 @@
 from src.methods.base import BaseOptimizer
+from src.methods.supporting_functions import to_float
+
 import autograd.numpy as np
 
 
@@ -10,8 +12,8 @@ class Dichotomie(BaseOptimizer):
 	def optimize(self, objective_function, initial_guess, precsision=1e-8, callback=False):
 		if not isinstance(initial_guess, tuple):
 			raise ValueError("Initital guess must be have tuple type")
-		
-		a, b = initial_guess
+		# TO-DO: проверка на правильно введенные данные
+		a, b = to_float(initial_guess)
 		min_x = max_x = 0.
 		self._initialize_callback((a + b) / 2)
 
@@ -51,7 +53,8 @@ class GoldenRatio(BaseOptimizer):
 		if not isinstance(initial_guess, tuple):
 			raise ValueError("Initital guess must be have tuple type")
 		
-		a, b = initial_guess
+		# TO-DO: проверка на правильно введенные данные
+		a, b = to_float(initial_guess)
 		phi = (1 + np.sqrt(5)) / 2
 		self._initialize_callback((a + b) / 2)
 
