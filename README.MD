@@ -69,7 +69,7 @@ opt = Optimizer("gradient_descent")
 data = opt.optimize(objective_function, initial_guess=[3, 2], precsision=1e-3, callback=True)
 
 figure = plot(data, objective_function)
-figure.savefig("quadratic.jpg")
+figure.savefig("quadratic.png")
 ```
 
 ![Пример отрисовки](/img/quadratic.png)
