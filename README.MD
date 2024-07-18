@@ -57,12 +57,29 @@ opt = Optimizer("gradient_descent")
 minimum = opt.optimize(lambda x: x ** 2, initial_guess=2)
 ```
 
+Для построения иллюстраций работы алгоритма используйте функцию *plot* из модуля *plots*:
+
+```python
+from optimizer import Optimizer
+from src.plots.two_dimensional import plot
+
+objective_function = lambda x: x[0] ** 2 + x[1] ** 2
+
+opt = Optimizer("gradient_descent")
+data = opt.optimize(objective_function, initial_guess=[3, 2], precsision=1e-3, callback=True)
+
+figure = plot(data, objective_function)
+figure.savefig("quadratic.jpg")
+```
+
+![Пример отрисовки](/img/quadratic.png)
+
 ### Тестирование
 
 Для тестирования запустите следующий скрипт из директории *optimization_methods*:
 
 ```bash
-    python -m unittest discover -s src/tests -p "test_*.py"
+python -m unittest discover -s src/tests -p "test_*.py"
 ```
 
 
