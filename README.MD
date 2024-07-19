@@ -62,17 +62,16 @@ minimum = opt.optimize(lambda x: x ** 2, initial_guess=2)
 ```python
 from optimizer import Optimizer
 from src.plots.two_dimensional import plot
+from src.functions import beale
 
-objective_function = lambda x: x[0] ** 2 + x[1] ** 2
+opt = Optimizer("gradient_descent_steepest", max_iter=1000)
+data = opt.optimize(beale, initial_guess=[2, 3], precsision=1e-3, callback=True)
 
-opt = Optimizer("gradient_descent")
-data = opt.optimize(objective_function, initial_guess=[3, 2], precsision=1e-3, callback=True)
-
-figure = plot(data, objective_function)
-figure.savefig("quadratic.png")
+figure = plot(data, beale)
+figure.savefig("beale.png", dpi=300)
 ```
 
-![Пример отрисовки](/img/quadratic.png)
+![Пример отрисовки](/img/beale.png)
 
 ### Тестирование
 
