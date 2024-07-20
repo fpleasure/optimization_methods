@@ -6,7 +6,7 @@ from src.optimizer import Optimizer
 
 def make_test(optimizer_name, objective_function, initial_guess, precsision):
 	"""Return minimun of objective function
-	
+
 	Parameters
 	----------
 	objective_function : Callable
@@ -18,6 +18,7 @@ def make_test(optimizer_name, objective_function, initial_guess, precsision):
 	precsision : float
 		point location accuracy
 	"""
+	
 	opt = Optimizer(optimizer_name)
 	x = opt.optimize(objective_function, initial_guess, precsision, callback=False)
 

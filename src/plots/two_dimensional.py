@@ -11,7 +11,7 @@ def get_points_from_callback(callback, objective_function):
 	callback_data optimizer
 
 	Parameters
-    ----------
+	----------
 	callback : dict
 		callback_data from optimizer
 
@@ -29,18 +29,18 @@ def get_points_from_callback(callback, objective_function):
 def get_mesh_from_points(x, y, objective_function, margins=0.15, num=1000):
 	"""Return mesh for contour lines
 	x, y recieved from get_points_from_callback
-	
+
 	Parameters
-    ----------
+	----------
 	x : List
 		x coordinate list from get_points_from_callback
-	
+
 	y : List
 		y coordinate list from get_points_from_callback
-	
+
 	objective_function : Callable
 		function to minimize
-	
+
 	margins : float
 		margins for matplotlib
 
@@ -59,13 +59,13 @@ def make_dots(x, y, linestyle='solid', color='red'):
 	"""Draw path of algoritm
 
 	Parameters
-    ----------
+	----------
 	x : List
 		x coordinate list from get_points_from_callback
-	
+
 	y : List
 		y coordinate list from get_points_from_callback
-	
+
 	linestyle : str
 		linestyle for matplotlib
 
@@ -78,18 +78,18 @@ def make_dots(x, y, linestyle='solid', color='red'):
 
 def make_contour(x_mesh, y_mesh, z_mesh, z, zorder=0):
 	"""Draw a contour lines
-	
+
 	Parameters
-    ----------
+	----------
 	x_mesh : np.ndarray
 		x coordinate mesh from get_mesh_from_points
-	
+
 	y_mesh : np.ndarray
 		y coordinate mesh from get_mesh_from_points
-	
+
 	z_mesh : np.ndarray
 		z coordinate mesh from get_mesh_from_points
-	
+
 	z : List
 		z coordinate sorted list from get_points_from_callback
 
@@ -102,9 +102,9 @@ def make_contour(x_mesh, y_mesh, z_mesh, z, zorder=0):
 
 def set_plot_settings(xlabel='x', ylabel='y', fontsize=10, labelpad=6):
 	"""Set plot settings
-	
+
 	Parameters
-    ----------
+	----------
 
 	xlabel : str
 		xlavel for matplotlib
@@ -128,9 +128,9 @@ def set_plot_settings(xlabel='x', ylabel='y', fontsize=10, labelpad=6):
 
 def plot(callback, objective_function, margins=0.15, num=1000, color='red', linestyle='solid', xlabel='x', ylabel='y', fontsize=10, labelpad=6, zorder=0):
 	"""Make plot in 2D
-	
+
 	Parameters
-    ----------
+	----------
 	callback : dict
 		callback_data from optimizer
 

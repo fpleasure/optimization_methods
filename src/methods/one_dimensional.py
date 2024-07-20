@@ -13,7 +13,7 @@ class Dichotomie(BaseOptimizer):
 	"""Dichotomie algorithm
 
 	Attributes
-    ----------
+	----------
 	max_iter : int
 		max iterations, if achieved, it generates an error
 	callback_data : dict
@@ -23,7 +23,7 @@ class Dichotomie(BaseOptimizer):
 	----------
 	optimize(objective_function, initial_guess, precsision=1e-8, callback=False)
 		Find minimum of objective function
-	
+
 	_initialize_callback(initial_guess, objective_function)
 		Initialize data structures for optimization 
 		algorithm steps
@@ -42,7 +42,7 @@ class Dichotomie(BaseOptimizer):
 		or return data about algorithm steps if callback=True
 
 		Parameters
-        ----------
+		----------
 		objective_function : Callable
 			function to minimize
 
@@ -57,10 +57,10 @@ class Dichotomie(BaseOptimizer):
 			algorithm stes or not
 
 		Raises
-        ------
+		------
 		ValueError
 			If initial guess does not have sequence type
-		
+
 		RuntimeError
 			If iteration limit has been exceeded
 		"""
@@ -90,7 +90,7 @@ class Dichotomie(BaseOptimizer):
 	def _initialize_callback(self, initial_guess, objective_function):
 		"""
 		Parameters
-        ----------
+		----------
 		objective_function : Callable
 			function to minimize
 
@@ -105,7 +105,7 @@ class Dichotomie(BaseOptimizer):
 		callback_data["points"] : List[Tuple]
 			Algorithm path, list consists of elements
 			of the form: (point, objective_function(point))
-		
+
 		callback_data["count_of_fubc_eval"] : int
 			Count of evaluated fubctions
 		"""
@@ -117,7 +117,7 @@ class Dichotomie(BaseOptimizer):
 	def _set_callback_on_step(self, objective_function, x):
 		"""
 		Parameters
-        ----------
+		----------
 		objective_function : Callable
 			function to minimize
 
@@ -134,7 +134,7 @@ class GoldenRatio(BaseOptimizer):
 	"""GoldenRatio algorithm
 
 	Attributes
-    ----------
+	----------
 	max_iter : int
 		max iterations, if achieved, it generates an error
 	callback_data : dict
@@ -144,7 +144,7 @@ class GoldenRatio(BaseOptimizer):
 	----------
 	optimize(objective_function, initial_guess, precsision=1e-8, callback=False)
 		Find minimum of objective function
-	
+
 	_initialize_callback(initial_guess, objective_function)
 		Initialize data structures for optimization 
 		algorithm steps
@@ -163,7 +163,7 @@ class GoldenRatio(BaseOptimizer):
 		or return data about algorithm steps if callback=True
 
 		Parameters
-        ----------
+		----------
 		objective_function : Callable
 			function to minimize
 
@@ -178,10 +178,10 @@ class GoldenRatio(BaseOptimizer):
 			algorithm stes or not
 
 		Raises
-        ------
+		------
 		ValueError
 			If initial guess does not have sequence type
-		
+
 		RuntimeError
 			If iteration limit has been exceeded
 		"""
@@ -218,7 +218,7 @@ class GoldenRatio(BaseOptimizer):
 	def _initialize_callback(self, initial_guess, objective_function):
 		"""
 		Parameters
-        ----------
+		----------
 		objective_function : Callable
 			function to minimize
 
@@ -233,7 +233,7 @@ class GoldenRatio(BaseOptimizer):
 		callback_data["points"] : List[Tuple]
 			Algorithm path, list consists of elements
 			of the form: (point, objective_function(point))
-		
+
 		callback_data["count_of_fubc_eval"] : int
 			Count of evaluated fubctions
 		"""
@@ -245,13 +245,14 @@ class GoldenRatio(BaseOptimizer):
 	def _set_callback_on_step(self, objective_function, x):
 		"""
 		Parameters
-        ----------
+		----------
 		objective_function : Callable
 			function to minimize
 
 		x : Union[Sequence[float], np.ndarray, float]
 			step of algorithm
 		"""
+		
 		self.callback_data["solution"] = x
 		self.callback_data["points"].append((x, objective_function(x)))
 		self.callback_data["count_of_func_eval"] += 2

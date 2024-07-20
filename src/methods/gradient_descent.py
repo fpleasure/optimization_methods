@@ -16,7 +16,7 @@ class GradientDescent(BaseOptimizer):
 	"""Gradient descent with constant step
 
 	Attributes
-    ----------
+	----------
 	learning_rate : float
 		gradient descent tuning parametr
 	max_iter : int
@@ -37,7 +37,7 @@ class GradientDescent(BaseOptimizer):
 		Add information about optimization 
 		algorithm step
 	"""
-	
+
 	def __init__(self, max_iter=1000):
 		self.max_iter = max_iter
 		self.callback_data = dict()
@@ -47,7 +47,7 @@ class GradientDescent(BaseOptimizer):
 		or return data about algorithm steps if callback=True
 
 		Parameters
-        ----------
+		----------
 		objective_function : Callable
 			function to minimize
 
@@ -62,7 +62,7 @@ class GradientDescent(BaseOptimizer):
 			algorithm steps
 
 		Raises
-        ------
+		------
 		RuntimeError
 			If iteration limit has been exceeded
 		"""
@@ -83,7 +83,7 @@ class GradientDescent(BaseOptimizer):
 	def _initialize_callback(self, initial_guess, objective_function):
 		"""
 		Parameters
-        ----------
+		----------
 		objective_function : Callable
 			function to minimize
 
@@ -98,7 +98,7 @@ class GradientDescent(BaseOptimizer):
 		callback_data["points"] : List[Tuple]
 			Algorithm path, list consists of elements
 			of the form: (point, objective_function(point))
-		
+
 		callback_data["count_of_grad_eval"] : int
 			Count of evaluated gradients
 		"""
@@ -110,7 +110,7 @@ class GradientDescent(BaseOptimizer):
 	def _set_callback_on_step(self, objective_function, x):
 		"""
 		Parameters
-        ----------
+		----------
 		objective_function : Callable
 			function to minimize
 
@@ -127,7 +127,7 @@ class GradientDescentSteepest(BaseOptimizer):
 	"""Steepest descent
 
 	Attributes
-    ----------
+	----------
 	max_iter : int
 		max iterations, if achieved, it generates an error
 	callback_data : dict
@@ -137,7 +137,7 @@ class GradientDescentSteepest(BaseOptimizer):
 	----------
 	optimize(objective_function, initial_guess, precsision=1e-8, callback=False, alpha_boundaries=(0, 10))
 		Find minimum of objective function
-	
+
 	_initialize_callback(initial_guess, objective_function)
 		Initialize data structures for optimization 
 		algorithm steps
@@ -156,7 +156,7 @@ class GradientDescentSteepest(BaseOptimizer):
 		or return data about algorithm steps if callback=True
 
 		Parameters
-        ----------
+		----------
 		objective_function : Callable
 			function to minimize
 
@@ -174,7 +174,7 @@ class GradientDescentSteepest(BaseOptimizer):
 			search limits for the gradient extension parameter
 
 		Raises
-        ------
+		------
 		RuntimeError
 			If iteration limit has been exceeded
 		"""
@@ -197,7 +197,7 @@ class GradientDescentSteepest(BaseOptimizer):
 	def _initialize_callback(self, initial_guess, objective_function):
 		"""
 		Parameters
-        ----------
+		----------
 		objective_function : Callable
 			function to minimize
 
@@ -212,7 +212,7 @@ class GradientDescentSteepest(BaseOptimizer):
 		callback_data["points"] : List[Tuple]
 			Algorithm path, list consists of elements
 			of the form: (point, objective_function(point))
-		
+
 		callback_data["count_of_grad_eval"] : int
 			Count of evaluated gradients
 		"""
@@ -224,13 +224,14 @@ class GradientDescentSteepest(BaseOptimizer):
 	def _set_callback_on_step(self, objective_function, x):
 		"""
 		Parameters
-        ----------
+		----------
 		objective_function : Callable
 			function to minimize
 
 		x : Union[Sequence[float], np.ndarray, float]
 			step of algorithm
 		"""
+
 		self.callback_data["solution"] = x
 		self.callback_data["points"].append((x, objective_function(x)))
 		self.callback_data["count_of_grad_eval"] += 1
@@ -240,7 +241,7 @@ class GradientDescentCrashStep(BaseOptimizer):
 	"""Gradient descent with crash step
 
 	Attributes
-    ----------
+	----------
 	max_iter : int
 		max iterations, if achieved, it generates an error
 	callback_data : dict
@@ -251,7 +252,7 @@ class GradientDescentCrashStep(BaseOptimizer):
 	optimize(objective_function, initial_guess, precsision=1e-8, callback=False, 
 	coefficient=0.2, step=0.2, first_step=0.1)
 		Find minimum of objective function
-	
+
 	_initialize_callback(initial_guess, objective_function)
 		Initialize data structures for optimization 
 		algorithm steps
@@ -270,7 +271,7 @@ class GradientDescentCrashStep(BaseOptimizer):
 		or return data about algorithm steps if callback=True
 
 		Parameters
-        ----------
+		----------
 		objective_function : Callable
 			function to minimize
 
@@ -286,7 +287,7 @@ class GradientDescentCrashStep(BaseOptimizer):
 
 		coefficient : float
 			constant coefficient
-		
+
 		step : float
 			crash step constant
 
@@ -294,7 +295,7 @@ class GradientDescentCrashStep(BaseOptimizer):
 			first step value
 
 		Raises
-        ------
+		------
 		RuntimeError
 			If iteration limit has been exceeded
 		"""
@@ -321,7 +322,7 @@ class GradientDescentCrashStep(BaseOptimizer):
 	def _initialize_callback(self, initial_guess, objective_function):
 		"""
 		Parameters
-        ----------
+		----------
 		objective_function : Callable
 			function to minimize
 
@@ -336,7 +337,7 @@ class GradientDescentCrashStep(BaseOptimizer):
 		callback_data["points"] : List[Tuple]
 			Algorithm path, list consists of elements
 			of the form: (point, objective_function(point))
-		
+
 		callback_data["count_of_grad_eval"] : int
 			Count of evaluated gradients
 		"""
@@ -348,13 +349,14 @@ class GradientDescentCrashStep(BaseOptimizer):
 	def _set_callback_on_step(self, objective_function, x):
 		"""
 		Parameters
-        ----------
+		----------
 		objective_function : Callable
 			function to minimize
 
 		x : Union[Sequence[float], np.ndarray, float]
 			step of algorithm
 		"""
+		
 		self.callback_data["solution"] = x
 		self.callback_data["points"].append((x, objective_function(x)))
 		self.callback_data["count_of_grad_eval"] += 1
