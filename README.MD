@@ -111,23 +111,27 @@
 Данный класс отрисовывает путь работы алгоритма, линии уровня, начальную и конечную точки.
 
 ### Примеры использования
-Запускать код можно из корневой директории *optimization_methods*, желательно запускать его как модули. Тогда, например, чтобы запустить файл *examples/one_dimensional.py* пропишем из корневой директории
+Запускать код нужно из корневой директории *optimization_methods*, желательно запускать его как модули. Например, чтобы запустить файл *examples/one_dimensional.py* пропишем из корневой директории:
 
 ```bash
 python3 -m examples.one_dimensional 
 ```
 
-Рассмотрим сначала работу алгоритма одномерной минимизации. В качестве пути у результата одномерной минимизации хранится путь отрезков, которые получаются в ходе работы алгоритма.
+Рассмотрим сначала работу одномерного минимизатора. В качестве пути (trace) у результата одномерной минимизации хранится путь отрезков, которые получаются в ходе работы алгоритма.
 
 ```python
 from optimization_methods.optimizers.one_dimensional import GoldenRatio
 
 
 def f(x):
+    # Минимизируемая функция
 	return x ** 2
 
-optimizer = GoldenRatio()
-result = optimizer.minimize(f, *[-1, 1], tolerance=1e-1, max_iterations=300)
+optimizer = GoldenRatio() # Оптимизатор
+result = optimizer.minimize(f, *[-1, 1], tolerance=1e-1, max_iterations=300) 
+# Запуск алгоритма для отрезка [-1, 1]
+# с точностью 1e-1, с максимально 
+# допустимым количеством итераций 300
 print(result)
 ```
 Результат:
@@ -139,27 +143,28 @@ trace: [array([-1,  1]), array([-0.23606798,  1.        ]), array([-0.23606798, 
 status: Optimization successfully stoped.
 ```
 
-Для многомерной оптимизации все аналогично, только вместо начального отрезка задается начальная точка. Все в той же папке примеров в файле *multidimensional.py*:
+Для многомерной оптимизации все аналогично, только вместо начального отрезка задается начальная точка. Все в той же папке примеров в файле *multidimensional_and_plot.py* можно увидеть следующий код:
 
 ```python
 import numpy as np
-from optimization_methods.optimizers.multidimensional import Newton
+from optimization_methods.optimizers.multidimensional import CyclicCoordinateDescent
+from optimization_methods.plotter import OptimizationPlotter
 
 
+optimizer = CyclicCoordinateDescent()
 def f(x):
-	return 3 * x[0] ** 2 + 5 * x[1] ** 2
+	return x[0] ** 2 + x[1] ** 2
 
-optimizer = Newton()
-result = optimizer.minimize(f, np.array([-5.0, 2.0]), tolerance=1e-2)
+result = optimizer.minimize(f, np.array([-15.0, 35.0]), tolerance=1e-2)
 print(result)
 
 ```
 Результат:
 ```bash
 Optimization result:
-solution: [0. 0.]
-iterations: 1
-trace: [array([-5.,  2.]), array([0., 0.])]
+solution: [0.00086535 0.00259605]
+iterations: 8
+trace: [array([-15.,  35.]), array([-5.00453104, 35.        ]), array([-5.00453104, 25.00453104]), array([8.65351359e-04, 2.50045310e+01]), array([8.65351359e-04, 1.50090621e+01]), array([-1.93498446e-03,  1.50090621e+01]), array([-1.93498446e-03,  5.01359312e+00]), array([8.65351359e-04, 5.01359312e+00]), array([0.00086535, 0.00259605])]
 status: Optimization successfully stoped.
 ```
 Попробуем теперь отрисовать получившуюся траекторию: импортируем специальный класс.
@@ -175,7 +180,7 @@ plot = OptimizationPlotter(result, f).plot()
 plot.show()
 ```
 
-![Пример отрисовки](/img/newton.png)
+![Пример отрисовки](/img/cyclic_coordinate_descent.png)
 
 ## Тестирование
 
