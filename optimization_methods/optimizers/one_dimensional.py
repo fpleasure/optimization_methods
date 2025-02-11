@@ -16,7 +16,8 @@ class OneDimensionalOptimizer(Optimizer):
 	алгоритмов одномерной оптимизации
 	"""
 
-	def _validate_args(self, func: Callable[[float], float], a: float, b: float, tolerance: float=1e-6, max_iterations: int=1000) -> None:
+	def _validate_args(self, func: Callable[[float], float], section: np.ndarray, tolerance: float=1e-6, max_iterations: int=1000) -> None:
+		a, b = section
 		if a >= b:
 			raise ValueError("Wrong a and b. Left bound must be < right bound.")
 
@@ -26,9 +27,10 @@ class GoldenRatio(OneDimensionalOptimizer):
 	Метод золотого сечения.
 	"""
 
-	def _minimize_implementation(self, func: Callable[[float], float], a: float, b: float, tolerance: float=1e-6, max_iterations: int=1000) -> OptimizationResult:
-		results = OptimizationResult(np.array([a, b]))
+	def _minimize_implementation(self, func: Callable[[float], float], section: np.ndarray, tolerance: float=1e-6, max_iterations: int=1000) -> OptimizationResult:
+		results = OptimizationResult(section)
 		resphi = (np.sqrt(5) - 1) / 2.
+		a, b = section
 		
 		while abs(b - a) > tolerance:
 			x1 = b - resphi * (b - a)
@@ -59,8 +61,9 @@ class Dichotomie(OneDimensionalOptimizer):
 	Метод Дихотомии.
 	"""
 
-	def _minimize_implementation(self, func: Callable[[float], float], a: float, b: float, tolerance: float=1e-6, max_iterations: int=1000) -> OptimizationResult:
-		results = OptimizationResult(np.array([a, b]))
+	def _minimize_implementation(self, func: Callable[[float], float], section: np.ndarray, tolerance: float=1e-6, max_iterations: int=1000) -> OptimizationResult:
+		results = OptimizationResult(section)
+		a, b = section
 		
 		while abs(b - a) > tolerance:
 			x = (a + b) / 2.

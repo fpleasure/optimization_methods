@@ -120,6 +120,7 @@ python3 -m examples.one_dimensional
 Рассмотрим сначала работу одномерного минимизатора. В качестве пути (trace) у результата одномерной минимизации хранится путь отрезков, которые получаются в ходе работы алгоритма.
 
 ```python
+import numpy as np
 from optimization_methods.optimizers.one_dimensional import GoldenRatio
 
 
@@ -128,7 +129,7 @@ def f(x):
 	return x ** 2
 
 optimizer = GoldenRatio() # Оптимизатор
-result = optimizer.minimize(f, *[-1, 1], tolerance=1e-1, max_iterations=300) 
+result = optimizer.minimize(f, np.array([-1, 1]), tolerance=1e-1, max_iterations=300)
 # Запуск алгоритма для отрезка [-1, 1]
 # с точностью 1e-1, с максимально 
 # допустимым количеством итераций 300

@@ -21,7 +21,7 @@ class BaseTestsForOneDimensional(unittest.TestCase, ABC):
 		def quadratic(x):
 			return x ** 2
 
-		result = self.optimizer.minimize(quadratic, -1, 1, tolerance=tolerance)
+		result = self.optimizer.minimize(quadratic, np.array([-1, 1]), tolerance=tolerance)
 
 		self.assertTrue(abs(quadratic(result.solution)) < tolerance)
 
@@ -31,7 +31,7 @@ class BaseTestsForOneDimensional(unittest.TestCase, ABC):
 		def cubic(x):
 			return (x - 1) ** 3
 
-		result = self.optimizer.minimize(cubic, 0, 2, tolerance=tolerance)
+		result = self.optimizer.minimize(cubic, np.array([0, 2]), tolerance=tolerance)
 
 		self.assertAlmostEqual(result.solution, 0, delta=tolerance)
 
@@ -41,7 +41,7 @@ class BaseTestsForOneDimensional(unittest.TestCase, ABC):
 		def quadratic(x):
 			return (x - 2) ** 2
 
-		result = self.optimizer.minimize(quadratic, -5, 5, tolerance=tolerance)
+		result = self.optimizer.minimize(quadratic, np.array([-5, 5]), tolerance=tolerance)
 
 		self.assertAlmostEqual(result.solution, 2, delta=tolerance)
 
@@ -53,8 +53,8 @@ class BaseTestsForOneDimensional(unittest.TestCase, ABC):
 		def quadratic(x):
 			return x ** 2
 
-		result_low = self.optimizer.minimize(quadratic, -2, 1, tolerance=tolerance_low)
-		result_high = self.optimizer.minimize(quadratic, -2, 1, tolerance=tolerance_high)
+		result_low = self.optimizer.minimize(quadratic, np.array([-2, 1]), tolerance=tolerance_low)
+		result_high = self.optimizer.minimize(quadratic, np.array([-2, 1]), tolerance=tolerance_high)
 
 		self.assertTrue(abs(quadratic(result_high.solution)) < tolerance_high)
 		self.assertTrue(abs(quadratic(result_low.solution)) < tolerance_low)

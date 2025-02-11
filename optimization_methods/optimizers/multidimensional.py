@@ -51,7 +51,7 @@ class SteepestDescent(MultidimensionalOptimizer):
 	Метод наискорейшего спуска.
 	"""
 
-	def _minimize_implementation(self, func: Callable[[np.ndarray], float], x_init: np.ndarray, tolerance: float=1e-6, max_iterations: int=1000, parametr_range: np.ndarray=[0, 10]) -> OptimizationResult:
+	def _minimize_implementation(self, func: Callable[[np.ndarray], float], x_init: np.ndarray, tolerance: float=1e-6, max_iterations: int=1000, parametr_range: np.ndarray=np.array([0, 10])) -> OptimizationResult:
 		results = OptimizationResult(x_init)
 		x = np.array(x_init, dtype=np.float64)
 		optimizer = GoldenRatio()
@@ -63,7 +63,7 @@ class SteepestDescent(MultidimensionalOptimizer):
 				return results
 			
 			try:
-				alpha = optimizer.minimize(lambda a: func(x - a * gradient), *parametr_range, tolerance=tolerance, max_iterations=max_iterations).solution
+				alpha = optimizer.minimize(lambda a: func(x - a * gradient), parametr_range, tolerance=tolerance, max_iterations=max_iterations).solution
 			except:
 				alpha = 1
 			
@@ -86,7 +86,7 @@ class ConjugateGradient(MultidimensionalOptimizer):
 	def _beta(self, gradient_new: np.ndarray, gradient: np.ndarray) -> float:
 		return np.dot(gradient_new, gradient_new) / np.dot(gradient, gradient)
 
-	def _minimize_implementation(self, func: Callable[[np.ndarray], float], x_init: np.ndarray, tolerance: float=1e-6, max_iterations: int=1000, parametr_range: np.ndarray=[0, 10]) -> OptimizationResult:
+	def _minimize_implementation(self, func: Callable[[np.ndarray], float], x_init: np.ndarray, tolerance: float=1e-6, max_iterations: int=1000, parametr_range: np.ndarray=np.array([0, 10])) -> OptimizationResult:
 		results = OptimizationResult(x_init)
 		x = np.array(x_init, dtype=np.float64)
 		optimizer = GoldenRatio()
@@ -97,7 +97,7 @@ class ConjugateGradient(MultidimensionalOptimizer):
 		for _ in range(max_iterations):
 			
 			try:
-				alpha = optimizer.minimize(lambda a: func(x + a * direction), *parametr_range, tolerance=tolerance).solution
+				alpha = optimizer.minimize(lambda a: func(x + a * direction), parametr_range, tolerance=tolerance).solution
 			except:
 				alpha = 1
 			
@@ -169,7 +169,7 @@ class ModificatedNewton(MultidimensionalOptimizer):
 	"""
 	Метод Ньютона с одномерной минимизацией.
 	"""
-	def _minimize_implementation(self, func: Callable[[np.ndarray], float], x_init: np.ndarray, tolerance: float=1e-6, max_iterations: int=1000, parametr_range: np.ndarray=[0, 10]) -> OptimizationResult:
+	def _minimize_implementation(self, func: Callable[[np.ndarray], float], x_init: np.ndarray, tolerance: float=1e-6, max_iterations: int=1000, parametr_range: np.ndarray=np.array([0, 10])) -> OptimizationResult:
 		results = OptimizationResult(x_init)
 		x = np.array(x_init, dtype=np.float64)
 		optimizer = GoldenRatio()
@@ -189,7 +189,7 @@ class ModificatedNewton(MultidimensionalOptimizer):
 				direction = np.linalg.pinv(hesse_matrix).dot(gradient)
 			
 			try:
-				alpha = optimizer.minimize(lambda a: func(x - a * direction), *parametr_range, tolerance=tolerance, max_iterations=max_iterations).solution
+				alpha = optimizer.minimize(lambda a: func(x - a * direction), parametr_range, tolerance=tolerance, max_iterations=max_iterations).solution
 			except:
 				alpha = 1
 			
@@ -214,7 +214,7 @@ class QuasiNewton(MultidimensionalOptimizer):
 	def _get_direction_matrix(self, s: np.ndarray, y: np.ndarray, B: np.ndarray, tolerance: float) -> np.ndarray:
 		pass
 
-	def _minimize_implementation(self, func: Callable[[np.ndarray], float], x_init: np.ndarray, tolerance: float = 1e-6, max_iterations: int = 1000, parametr_range: np.ndarray=[0, 10]) -> OptimizationResult:
+	def _minimize_implementation(self, func: Callable[[np.ndarray], float], x_init: np.ndarray, tolerance: float = 1e-6, max_iterations: int = 1000, parametr_range: np.ndarray=np.array([0, 10])) -> OptimizationResult:
 		results = OptimizationResult(x_init)
 		x = np.array(x_init, dtype=np.float64)
 		n = len(x)
@@ -235,7 +235,7 @@ class QuasiNewton(MultidimensionalOptimizer):
 				direction = - np.linalg.pinv(B).dot(gradient)
 
 			try:
-				alpha = optimizer.minimize(lambda a: func(x + a * direction), *parametr_range, tolerance=tolerance, max_iterations=max_iterations).solution
+				alpha = optimizer.minimize(lambda a: func(x + a * direction), parametr_range, tolerance=tolerance, max_iterations=max_iterations).solution
 			except:
 				alpha = 1
 
@@ -297,7 +297,7 @@ class CyclicCoordinateDescent(MultidimensionalOptimizer):
     Метод циклического покоординатного спуска.
     """
     
-    def _minimize_implementation(self, func: Callable[[np.ndarray], float], x_init: np.ndarray, tolerance: float=1e-6, max_iterations: int=1000, parametr_range: np.ndarray=[-10, 10]) -> OptimizationResult:
+    def _minimize_implementation(self, func: Callable[[np.ndarray], float], x_init: np.ndarray, tolerance: float=1e-6, max_iterations: int=1000, parametr_range: np.ndarray=np.array([-10, 10])) -> OptimizationResult:
         results = OptimizationResult(x_init)
         x = np.array(x_init, dtype=np.float64)
         n = len(x)
@@ -307,7 +307,7 @@ class CyclicCoordinateDescent(MultidimensionalOptimizer):
                 direction = np.zeros(n)
                 direction[i] = 1.0
                 optimizer = GoldenRatio()
-                alpha = optimizer.minimize(lambda a: func(x + a * direction), *parametr_range, tolerance=tolerance).solution
+                alpha = optimizer.minimize(lambda a: func(x + a * direction), parametr_range, tolerance=tolerance).solution
                 x = x + alpha * direction
                 results.add_iteration(x)
                 
@@ -358,7 +358,7 @@ class Rosenbrock(MultidimensionalOptimizer):
     Метод Розенброка.
     """
     
-    def _minimize_implementation(self, func: Callable[[np.ndarray], float], x_init: np.ndarray, tolerance: float=1e-6, max_iterations: int=1000, parametr_range: np.ndarray=[-10, 10]) -> OptimizationResult:
+    def _minimize_implementation(self, func: Callable[[np.ndarray], float], x_init: np.ndarray, tolerance: float=1e-6, max_iterations: int=1000, parametr_range: np.ndarray=np.array([-10, 10])) -> OptimizationResult:
         results = OptimizationResult(x_init)
         x = np.array(x_init, dtype=np.float64)
         n = len(x)
@@ -367,7 +367,7 @@ class Rosenbrock(MultidimensionalOptimizer):
         for _ in range(max_iterations):
             for i in range(n):
                 optimizer = GoldenRatio()
-                alpha = optimizer.minimize(lambda a: func(x + a * directions[i]), *parametr_range, tolerance=tolerance).solution
+                alpha = optimizer.minimize(lambda a: func(x + a * directions[i]), parametr_range, tolerance=tolerance).solution
                 x = x + alpha * directions[i]
                 results.add_iteration(x)
             
